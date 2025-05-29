@@ -61,13 +61,13 @@ function Router() {
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="bloqz-ui-theme">
-      <IndustryThemeProvider>
+    <IndustryThemeProvider>
+      <ThemeProvider>
         <div className="min-h-screen bg-background">
           <Router />
         </div>
-      </IndustryThemeProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </IndustryThemeProvider>
   );
 }
 

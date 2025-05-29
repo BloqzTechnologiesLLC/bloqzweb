@@ -10,20 +10,30 @@ type ThemeProviderContextType = {
 
 const ThemeProviderContext = createContext<ThemeProviderContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultTheme?: Theme;
+  storageKey?: string;
+}
+
+export function ThemeProvider({ 
+  children, 
+  defaultTheme = "light",
+  storageKey = "rxbridge-theme" 
+}: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
     // Check localStorage first
-    const stored = localStorage.getItem("rxbridge-theme") as Theme;
+    const stored = localStorage.getItem(storageKey) as Theme;
     if (stored && (stored === "light" || stored === "dark")) {
       return stored;
     }
     
     // Check system preference
     if (typeof window !== "undefined" && window.matchMedia) {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : defaultTheme;
     }
     
-    return "light";
+    return defaultTheme;
   });
 
   useEffect(() => {
@@ -36,23 +46,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.classList.add(theme);
     
     // Store in localStorage
-    localStorage.setItem("rxbridge-theme", theme);
-  }, [theme]);
+    localStorage.setItem(storageKey, theme);
+  }, [theme, storageKey]);
 
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = (e: MediaQueryListEvent) => {
-      const stored = localStorage.getItem("rxbridge-theme");
+      const stored = localStorage.getItem(storageKey);
       if (!stored) {
-        setTheme(e.matches ? "dark" : "light");
+        setTheme(e.matches ? "dark" : defaultTheme);
       }
     };
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
+  }, [defaultTheme, storageKey]);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");

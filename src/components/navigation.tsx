@@ -144,7 +144,7 @@ export function Navigation({ currentPage }: NavigationProps) {
               variant="outline"
               size="sm"
               className="p-2 rounded-md text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 border border-gray-300 dark:border-gray-600 hover:scale-105"
-              title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+              aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             >
               <AnimatedIcon hoverScale={1.2} hoverRotate={isDarkMode ? 180 : -180}>
                 {isDarkMode ? (
