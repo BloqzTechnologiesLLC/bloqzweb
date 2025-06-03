@@ -35,6 +35,7 @@ interface AnimatedButtonProps {
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   onClick?: () => void;
+  title?: string;
 }
 
 export function AnimatedButton({ 
@@ -43,7 +44,8 @@ export function AnimatedButton({
   variant = "primary", 
   size = "md",
   loading = false,
-  onClick
+  onClick,
+  title
 }: AnimatedButtonProps) {
   const currentTheme = useIndustryTheme();
   const [isPressed, setIsPressed] = useState(false);
@@ -80,6 +82,7 @@ export function AnimatedButton({
       onMouseLeave={() => setIsPressed(false)}
       onClick={onClick}
       disabled={loading}
+      title={title}
     >
       <span className={`inline-flex items-center ${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
         {children}

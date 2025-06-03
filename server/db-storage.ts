@@ -22,8 +22,56 @@ import {
   type BlockchainTransaction,
   type InsertBlockchainTransaction
 } from "@shared/schema";
+import { 
+  AuditLog, 
+  DataAccessLog, 
+  SecurityIncident, 
+  ComplianceReport 
+} from "@shared/types";
+import { pgTable, text, serial, integer, timestamp, json } from "drizzle-orm/pg-core";
 import { IStorage } from "./storage";
 import { eq, and, inArray, sql } from "drizzle-orm";
+
+export const auditLogs = pgTable("audit_logs", {
+  id: serial("id").primaryKey(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  userId: integer("user_id").notNull(),
+  action: text("action").notNull(),
+  details: text("details").notNull(),
+  resource: text("resource").notNull(),
+  riskLevel: text("risk_level").notNull()
+});
+
+export const dataAccessLogs = pgTable("data_access_logs", {
+  id: serial("id").primaryKey(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  userId: integer("user_id").notNull(),
+  patientId: integer("patient_id").notNull(),
+  accessType: text("access_type").notNull(),
+  details: text("details").notNull()
+});
+
+export const securityIncidents = pgTable("security_incidents", {
+  id: serial("id").primaryKey(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  type: text("type").notNull(),
+  severity: text("severity").notNull(),
+  status: text("status").notNull(),
+  details: text("details").notNull(),
+  affectedUsers: json("affected_users").notNull(),
+  resolutionSteps: text("resolution_steps"),
+  resolvedAt: timestamp("resolved_at")
+});
+
+export const complianceReports = pgTable("compliance_reports", {
+  id: serial("id").primaryKey(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  reportType: text("report_type").notNull(),
+  period: text("period").notNull(),
+  data: json("data").notNull(),
+  status: text("status").notNull(),
+  submittedBy: integer("submitted_by").notNull()
+});
 
 export class DbStorage implements IStorage {
   // User management
