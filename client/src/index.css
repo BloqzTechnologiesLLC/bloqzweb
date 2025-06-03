@@ -1,0 +1,262 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Animations for Micro-Interactions */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(var(--float-amplitude, -10px));
+  }
+}
+
+@keyframes pulse-light {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse-strong {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-light {
+  animation: pulse-light 2s ease-in-out infinite;
+}
+
+.animate-pulse-strong {
+  animation: pulse-strong 1.5s ease-in-out infinite;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s ease-out forwards;
+}
+
+.animate-shake {
+  animation: shake 0.6s ease-in-out;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+:root {
+  /* Base colors */
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+  
+  /* RxBridge Light Theme - Aqua Marine Primary & Secondary */
+  --primary: 198 93% 60%; /* #06B6D4 - Aqua Marine */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 218 100% 25%; /* #1E3A8A - Deep Blue */
+  --secondary-foreground: 0 0% 98%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  
+  /* Custom RxBridge variables - Beautiful Aqua Marine Gradient */
+  --rxbridge-aqua-start: 240 100% 27%; /* #1E3A8A - Deep Navy Blue */
+  --rxbridge-aqua-mid: 207 90% 54%; /* #3B82F6 - Medium Blue */
+  --rxbridge-aqua-end: 188 100% 44%; /* #06B6D4 - Bright Turquoise */
+  --rxbridge-aqua-light: 174 100% 47%; /* #00D4AA - Light Aqua */
+}
+
+.dark {
+  /* Base colors for dark mode */
+  --background: 224 71.4% 4.1%;
+  --foreground: 0 0% 98%;
+  --muted: 215 27.9% 16.9%;
+  --muted-foreground: 217.9 10.6% 64.9%;
+  --popover: 224 71.4% 4.1%;
+  --popover-foreground: 0 0% 98%;
+  --card: 224 71.4% 4.1%;
+  --card-foreground: 0 0% 98%;
+  --border: 215 27.9% 16.9%;
+  --input: 215 27.9% 16.9%;
+  --ring: 216 12.2% 83.9%;
+  
+  /* RxBridge Dark Theme - Titanium (Primary) & Stripe (Secondary) */
+  --primary: 215 25% 27%; /* #374151 - Titanium gradient start */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 213 93% 68%; /* Stripe multi-color - using blue as base */
+  --secondary-foreground: 224 71.4% 4.1%;
+  --accent: 215 27.9% 16.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  
+  /* Custom RxBridge dark variables */
+  --rxbridge-titanium-start: 215 25% 27%; /* #374151 */
+  --rxbridge-titanium-end: 220 13% 18%; /* #1F2937 */
+  --rxbridge-stripe-1: 213 93% 68%; /* #3B82F6 - Blue */
+  --rxbridge-stripe-2: 188 100% 44%; /* #06B6D4 - Cyan */
+  --rxbridge-stripe-3: 158 64% 52%; /* #10B981 - Green */
+  --rxbridge-stripe-4: 43 96% 56%; /* #F59E0B - Yellow */
+  --rxbridge-stripe-5: 0 84% 60%; /* #EF4444 - Red */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* RxBridge gradient backgrounds */
+  .bg-aqua-gradient {
+    background: linear-gradient(135deg, 
+      hsl(var(--rxbridge-aqua-start)) 0%, 
+      hsl(var(--rxbridge-aqua-mid)) 50%, 
+      hsl(var(--rxbridge-aqua-end)) 100%);
+  }
+  
+  .bg-aqua-marine-gradient {
+    background: linear-gradient(135deg, 
+      hsl(var(--rxbridge-aqua-start)) 0%, 
+      hsl(var(--rxbridge-aqua-mid)) 33%, 
+      hsl(var(--rxbridge-aqua-end)) 66%, 
+      hsl(var(--rxbridge-aqua-light)) 100%);
+  }
+  
+  .bg-titanium-gradient {
+    background: linear-gradient(135deg, hsl(var(--rxbridge-titanium-start)) 0%, hsl(var(--rxbridge-titanium-end)) 100%);
+  }
+  
+  .bg-stripe-gradient {
+    background: linear-gradient(90deg, 
+      hsl(var(--rxbridge-stripe-1)) 0%, 
+      hsl(var(--rxbridge-stripe-2)) 25%, 
+      hsl(var(--rxbridge-stripe-3)) 50%, 
+      hsl(var(--rxbridge-stripe-4)) 75%, 
+      hsl(var(--rxbridge-stripe-5)) 100%);
+  }
+  
+  /* Portal-specific styling */
+  .portal-header {
+    @apply bg-aqua-marine-gradient dark:bg-titanium-gradient text-white p-6 rounded-lg shadow-lg;
+  }
+  
+  .portal-card {
+    @apply bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .ai-assistant-bubble {
+    @apply bg-aqua-gradient dark:bg-stripe-gradient text-white p-3 rounded-lg shadow-sm;
+  }
+}
